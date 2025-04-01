@@ -8,10 +8,13 @@ const ChatRoom = ({ roomId }) => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const options = {
-      serverUrl,
-      roomId,
-    };
+    function createOptions() {
+      return {
+        serverUrl,
+        roomId,
+      };
+    }
+    const options = createOptions();
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
