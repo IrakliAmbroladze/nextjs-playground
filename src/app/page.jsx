@@ -1,51 +1,55 @@
 "use client";
-import { createConnection } from "@/utils/chat";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const serverUrl = "https://localhost:1234";
-
-const ChatRoom = ({ roomId }) => {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    function createOptions() {
-      return {
-        serverUrl,
-        roomId,
-      };
-    }
-    const options = createOptions();
-    const connection = createConnection(options);
-    connection.connect();
-    return () => connection.disconnect();
-  }, [roomId]);
-  return (
-    <>
-      <h1 className="text-xl">Welcome to the {roomId} room!</h1>
-      <input
-        className="border"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-    </>
-  );
-};
-const App = () => {
-  const [roomId, setRoomId] = useState("general");
+export default function Form() {
+  const [form, setForm] = useState({
+    firstName: "Irakli",
+    lastName: "Ambroladze",
+    email: "ambroladzirakli@gmail.com",
+  });
   return (
     <>
       <label>
-        Choose the chat room:{" "}
-        <select value={roomId} onChange={(e) => setRoomId(e.target.value)}>
-          <option value="general">general</option>
-          <option value="travel">travel</option>
-          <option value="music">music</option>
-        </select>
+        First name:{" "}
+        <input
+          className="border"
+          value={form.firstName}
+          onChange={(e) =>
+            setForm((f) => {
+              return { ...f, firstName: e.target.value };
+            })
+          }
+        />
       </label>
-      <hr />
-      <ChatRoom roomId={roomId} />
+      <br />
+      <label>
+        Last name:
+        <input
+          className="border"
+          value={form.lastName}
+          onChange={(e) =>
+            setForm((f) => {
+              return { ...f, lastName: e.target.value };
+            })
+          }
+        />
+      </label>
+      <br />
+      <label>
+        Email:{" "}
+        <input
+          className="border"
+          value={form.email}
+          onChange={(e) =>
+            setForm((f) => {
+              return { ...f, email: e.target.value };
+            })
+          }
+        />
+      </label>
+      <p>
+        {form.firstName} {form.lastName} ({form.email})
+      </p>
     </>
   );
-};
-
-export default App;
+}
