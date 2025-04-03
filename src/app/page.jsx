@@ -1,13 +1,19 @@
 "use client";
 
-function Cup({ guest }) {
-  return <h2>Tea cup for guest #{guest}</h2>;
-}
+import Profile from "@/components/profile";
 
 export default function App() {
-  let cups = [];
-  for (let i = 1; i <= 12; i++) {
-    cups.push(<Cup key={i} guest={i} />);
-  }
-  return cups;
+  return (
+    <>
+      <Profile
+        person={{ imageId: "lrWQx8l", name: "Subrahmanyan Chandrasekhar" }}
+      />
+      <Profile
+        person={{
+          imageId: "MK3eW3A",
+          name: "Creola Katherine Johnson",
+        }}
+      />
+    </>
+  );
 }
